@@ -9,3 +9,15 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
 
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
