@@ -1,6 +1,6 @@
+version: '3.8'
 
 services:
-  
   web:
     build: .
     ports:
@@ -8,16 +8,24 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    depends_on:
+      - db
 
   db:
     image: mariadb
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: example
+    volumes:
+      - db_data:/var/lib/mysql
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+    depends_on:
+      - db
 
+volumes:
+  db_data:
